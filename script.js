@@ -67,13 +67,67 @@ let losses = 0;
 let draws = 0;
 
 function game() {
-    for (let i = 0; i < 5; i++) {
-        const computerAnswer = computerPlay();
-        const playerAnswer = prompt('Please enter rock, paper or scissors.', 'rock')
-        console.log('Computer chose ' + computerAnswer)
-        console.log(playRound(playerAnswer, computerAnswer))
-        console.log(`wins: ${wins} losses: ${losses} draws: ${draws}`)
-     }
-    console.log(`The results are \nwins: ${wins} \nlosses: ${losses} \ndraws: ${draws}`)
+    result.textContent = '';
+    const computerAnswer = computerPlay();
+
+
+    
+    const playerch = document.createElement('p');
+    playerch.textContent = 'You chose ' + playerAnswer;
+    playerch.style.margin = '0px';
+    result.appendChild(playerch);
+
+    const para = document.createElement('p');
+    para.textContent = 'Computer chose ' + computerAnswer;
+    para.style.margin = '0px';
+    result.appendChild(para);
+
+    const round = document.createElement('p');
+    round.textContent = playRound(playerAnswer, computerAnswer);
+    round.style.margin = 'px';
+    result.appendChild(round);
+
+    const total = document.createElement('p');
+    total.textContent = `wins: ${wins} \nlosses: ${losses} \ndraws: ${draws}`;
+    total.style.margin = '0px';
+    result.appendChild(total)
+
+    if (wins == 5) {
+        result.textContent = 'you win pog';
+        wins = 0;
+        losses = 0;
+        draws = 0;
+    } else if (losses == 5) {
+        result.textContent = 'you lose sadge';
+        wins = 0;
+        losses = 0;
+        draws = 0;
+    }
+
 };  
-game();
+
+
+const rock = document.getElementById('rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+
+let playerAnswer = "";
+
+rock.style.color = "blue";
+
+function playerChoice() {
+    playerAnswer = this.id;
+};
+rock.addEventListener('click', playerChoice);
+rock.addEventListener('click', game);
+
+paper.addEventListener('click', playerChoice);
+paper.addEventListener('click', game);
+
+scissors.addEventListener('click', playerChoice);
+scissors.addEventListener('click', game);
+
+const result = document.getElementById('results');
+result.style.cssText = 'height: auto; width: 400px; border: 4px solid black; margin: 100px; box-sizing: border-box;'
+
+
